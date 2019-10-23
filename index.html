@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{box-sizing: border-box}
+    .titulo{
+        display: block;
+        width: 500px;
+        height: auto;
+        font: 20px "aqua grotesque";
+        text-transform: uppercase;
+        text-align:center;
+        margin: auto;
+        margin-top: 20px;
+    }
+    .titulo span{
+        display: block;
+        font-size: 12px;
+        color: rgb(153, 0, 0);
+    }
+    [relogio]{
+        display: flex;
+        width: 200px;
+        margin: auto;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+    [relogio] div{
+        padding: 10px;
+        text-align: center;
+        width: 50%;
+        height: 100%;;
+    }
+    [min]{
+        background: rgb(4, 106, 189);
+        color: #fff;
+    }
+    [seg]{
+        background: rgb(68, 182, 68);
+        color: #fff;
+    }
+    audio{
+        display: none;
+        width: 500px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 50px;
+    }
+    input{
+        display: block;
+        width: 100px;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        margin: auto;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        outline: none;
+        background:#fff;
+        color: #444;
+        font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    <input type="text" minutos placeholder="Minutos">
+    <div class="titulo">
+        Cronometro
+        <span>Clique para iniciar</span>
+    </div>
+    <div relogio>
+        <div min>00</div>
+        <div seg>00</div>
+    </div>
+
+    <audio controls loop>
+        <source src="./musica.mp3">
+    </audio>
+    <script>
+    const elemento = document.querySelector("[relogio]");
+    const minuto = document.querySelector("[min]");
+    const segundo = document.querySelector("[seg]");
+    elemento.onclick = () =>{
+        const setMinutos = document.querySelector("[minutos]");
+        if(setMinutos.value != "")
+        {
+            let cont_segundo = 0;
+            let cont_minuto = 1;
+
+            setInterval(() => {
+                cont_segundo++;
+                segundo.innerHTML = cont_segundo;
+                if(segundo.innerHTML == 60)
+                {
+                    minuto.innerHTML = cont_minuto;
+                    cont_segundo = 0;
+                    cont_minuto++;
+                }
+                if(minuto.innerHTML == setMinutos.value)
+                {
+                    document.querySelector("audio").play();
+                }
+                
+            }, 1000);
+        }
+        else
+        {
+            alert("preencha os minutos");
+        }
+    }
+    </script>
+</body>
+</html>
