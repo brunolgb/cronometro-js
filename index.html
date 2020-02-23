@@ -36,6 +36,10 @@
         width: 50%;
         height: 100%;;
     }
+    [hor]{
+        background: rgb(133, 3, 3);
+        color: #fff;
+    }
     [min]{
         background: rgb(4, 106, 189);
         color: #fff;
@@ -70,12 +74,12 @@
 </head>
 <!-- começando a escrever o corpo com todos os elementos -->
 <body>
-    <input type="text" minutos placeholder="Minutos">
     <div class="titulo">
         Cronometro
         <span>Clique para iniciar</span>
     </div>
     <div relogio>
+        <div hor>00</div>
         <div min>00</div>
         <div seg>00</div>
     </div>
@@ -86,37 +90,31 @@
 
     <!-- trabalhando o javascript aqui em baixo -->
     <script>
-    const elemento = document.querySelector("[relogio]");
+    const relogio = document.querySelector("[relogio]");
+    const hora = document.querySelector("[hor]");
     const minuto = document.querySelector("[min]");
     const segundo = document.querySelector("[seg]");
-    elemento.onclick = () =>{
-        const setMinutos = document.querySelector("[minutos]");
-        if(setMinutos.value != "")
-        {
-            let cont_segundo = 0;
-            let cont_minuto = 1;
+    relogio.addEventListener("click", () =>{
+        let cont_segundo = 0;
+        let cont_minuto = 1;
+        let cont_hora = 1;
 
-            setInterval(() => {
-                cont_segundo++;
-                segundo.innerHTML = cont_segundo;
-                if(segundo.innerHTML == 60)
-                {
-                    minuto.innerHTML = cont_minuto;
-                    cont_segundo = 0;
-                    cont_minuto++;
-                }
-                if(minuto.innerHTML == setMinutos.value)
-                {
-                    document.querySelector("audio").play();
-                }
-                
-            }, 1000);
-        }
-        else
-        {
-            alert("preencha os minutos");
-        }
-    }
+        setInterval(() => {
+            cont_segundo++;
+            segundo.innerHTML = cont_segundo;
+            if (segundo.innerHTML == 60) {
+                minuto.innerHTML = cont_minuto;
+                cont_segundo = 0;
+                cont_minuto++;
+            }
+            if (minuto.innerHTML == 60) {
+                hora.innerHTML = cont_minuto;
+                cont_minuto = 0;
+                cont_minuto++;
+            }
+
+        }, 1000);
+    })
     </script>
 </body>
 </html>
